@@ -1,0 +1,57 @@
+# Environment variables and secrets
+.env
+*.key
+api key
+
+# Credentials
+google_creds.json
+googlecreds.json
+email_providers.json
+accounts.json
+
+# Sensitive data files
+triage_history.json
+verification_requests.txt
+business_profile.json
+unsubscribe_prefs.json
+
+# Customer data
+Customer_Memory/
+Incoming_Emails/
+
+# Generated/Temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# InboxPilot generated folders
+Refund_Requests/
+Bug_Reports/
+Delay_Complaints/
+General_Queries/
+Opportunities/
+Subscriptions/
+Spam/
+Knowledge_Base/

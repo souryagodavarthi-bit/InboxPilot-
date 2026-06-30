@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InboxPilot+ | AI Enterprise Triage Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i data-lucide="sparkles"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>InboxPilot<span>+</span></h2>
+                    <span class="badge-pro">AI ULTRA</span>
+                </div>
+            </div>
+
+            <nav class="nav-section">
+                <div class="nav-label">MAIN NAVIGATION</div>
+                <button class="nav-item active" data-tab="signin">
+                    <i data-lucide="log-in"></i>
+                    <span>Sign In Portal</span>
+                </button>
+                <button class="nav-item" data-tab="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Triage Center</span>
+                </button>
+                <button class="nav-item" data-tab="categories-manager">
+                    <i data-lucide="sliders"></i>
+                    <span>Category Manager</span>
+                </button>
+                <button class="nav-item" data-tab="analytics">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Analytics & Sentiment</span>
+                </button>
+            </nav>
+
+            <div class="nav-section">
+                <div class="nav-label">ACTIVE QUEUES</div>
+                <div id="sidebar-queues-list" class="queues-list">
+                    <!-- Dynamic Queue Links -->
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span>AI Engine Active</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="email-search-input" placeholder="Search sender, email subject, or content...">
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="run-triage-btn">
+                        <i data-lucide="play"></i>
+                        <span>Run AI Triage</span>
+                    </button>
+                    <div class="user-avatar">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tab 0: Sign In Screen -->
+            <section id="tab-signin" class="tab-pane active">
+                <div class="card glass-card" style="max-width: 480px; margin: 40px auto; text-align: center;">
+                    <div style="font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">InboxPilot+</div>
+                    <h2 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 4px;">Enterprise Sign In</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">Enter your business email to unlock your triage workspace</p>
+                    
+                    <form id="signin-form" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; text-align: left;">
+                        <div class="form-group">
+                            <label style="color: var(--text-muted); font-size: 12px; font-weight: 600;">Authorized Business Email</label>
+                            <input type="email" id="signin-email-input" placeholder="name@company.com" required style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); padding: 12px; border-radius: var(--radius-sm); color: white; width: 100%;">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="justify-content: center; width: 100%; padding: 12px; font-size: 14px;">
+                            <i data-lucide="shield-check"></i>
+                            <span>Authorize & Unlock Workspace</span>
+                        </button>
+                    </form>
+
+                    <div style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+                        <span style="font-size: 12px; color: var(--text-subtle);">Or sign in via SSO provider:</span>
+                        <button class="btn btn-accent" style="justify-content: center; width: 100%; padding: 10px;" id="sso-google-btn">
+                            <i data-lucide="chrome"></i>
+                            <span>Sign in with Google OAuth</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 1: Dashboard Triage Center -->
+            <section id="tab-dashboard" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h1 id="queue-title">General Queries Queue</h1>
+                        <p class="pane-subtitle" id="queue-subtitle">Showing all processed incoming emails sorted from most to least recent.</p>
+                    </div>
+                    <div class="queue-stats">
+                        <span class="stat-badge" id="queue-count-badge">0 Emails</span>
+                    </div>
+                </div>
+
+                <div id="emails-container" class="emails-feed">
+                    <!-- Dynamic Email Cards -->
+                </div>
+            </section>
+
+            <!-- Tab 2: Category Manager -->
+            <section id="tab-categories-manager" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h1>Settings & Category Manager</h1>
+                        <p class="pane-subtitle">Customize your AI triage routing system, configure automation modes, and add custom business categories.</p>
+                    </div>
+                </div>
+
+                <div class="card glass-card max-cap-banner">
+                    <div class="cap-header">
+                        <i data-lucide="layers"></i>
+                        <h3>Active Categories Capacity: <span id="active-cat-count">0</span> / <span id="max-cat-count">8</span> (Min: 1)</h3>
+                    </div>
+                    <p id="cap-status-msg" class="cap-status-text">You can add up to 0 more categories.</p>
+                </div>
+
+                <div class="manager-grid">
+                    <!-- Standard Categories Card -->
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <i data-lucide="shield-alert"></i>
+                            <h3>Manage Standard Categories</h3>
+                        </div>
+                        <div id="standard-categories-list" class="cat-settings-list">
+                            <!-- Dynamic Standard Categories -->
+                        </div>
+                        <button class="btn btn-accent mt-4" id="save-standard-cats-btn">Save Standard Category Settings</button>
+                    </div>
+
+                    <!-- Custom Categories Card -->
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <i data-lucide="box"></i>
+                            <h3>Manage Custom Business Categories</h3>
+                        </div>
+                        <div id="custom-categories-list" class="cat-settings-list">
+                            <!-- Dynamic Custom Categories -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Custom Category Form -->
+                <div class="card glass-card mt-6">
+                    <div class="card-header">
+                        <i data-lucide="plus-circle"></i>
+                        <h3>Add Custom Business Category</h3>
+                    </div>
+                    <form id="add-category-form" class="form-grid">
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <input type="text" id="new-cat-name" placeholder="e.g. Wholesale Inquiry" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Automation Mode</label>
+                            <select id="new-cat-mode">
+                                <option value="semi_automated">Semi-Automated (AI Drafts, Human Review)</option>
+                                <option value="automated">Fully Automated (Instant Auto-Reply)</option>
+                                <option value="manual">Fully Manual (Staff Draft Scratch)</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Category Description (Explain to the AI when to route emails here)</label>
+                            <textarea id="new-cat-desc" rows="3" placeholder="Customer is asking about bulk orders, pricing list, or wholesale partnership terms." required></textarea>
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary" id="add-cat-btn">
+                                <i data-lucide="plus"></i>
+                                <span>Add Business Category</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Active Definitions Card at Bottom -->
+                <div class="card glass-card mt-6">
+                    <div class="card-header">
+                        <i data-lucide="book-open"></i>
+                        <h3>Active Category Definitions</h3>
+                    </div>
+                    <p class="text-subtle mb-4">Here are the active categories and their AI routing definitions:</p>
+                    <div id="active-definitions-list" class="definitions-list">
+                        <!-- Dynamic Definitions -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Analytics -->
+            <section id="tab-analytics" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h1>Support Pipeline Analytics & Sentiment</h1>
+                        <p class="pane-subtitle">Live breakdown of incoming customer sentiment, urgency distribution, and AI accuracy metrics.</p>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="card glass-card stat-card">
+                        <div class="stat-icon blue"><i data-lucide="mail"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Total Processed</span>
+                            <span class="stat-value" id="analytics-total-count">0</span>
+                        </div>
+                    </div>
+                    <div class="card glass-card stat-card">
+                        <div class="stat-icon green"><i data-lucide="zap"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Auto-Replied</span>
+                            <span class="stat-value" id="analytics-auto-count">0</span>
+                        </div>
+                    </div>
+                    <div class="card glass-card stat-card">
+                        <div class="stat-icon red"><i data-lucide="alert-triangle"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Escalated to Human</span>
+                            <span class="stat-value" id="analytics-escalated-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

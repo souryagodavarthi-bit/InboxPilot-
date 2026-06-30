@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Refund",
+    "label": "Refund Requests",
+    "dir_name": "Refund_Requests",
+    "description": "Customer wants their money back.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": true,
+    "escalate_on_reply": false,
+    "automation_mode": "automated"
+  },
+  {
+    "name": "Bug Report",
+    "label": "Bug Reports",
+    "dir_name": "Bug_Reports",
+    "description": "Customer is reporting a technical issue.",
+    "is_standard": true,
+    "enabled": false,
+    "has_auto_reply": true,
+    "escalate_on_reply": false,
+    "automation_mode": "automated"
+  },
+  {
+    "name": "Delay",
+    "label": "Delay Complaints",
+    "dir_name": "Delay_Complaints",
+    "description": "Customer complains about delay.",
+    "is_standard": true,
+    "enabled": false,
+    "has_auto_reply": true,
+    "escalate_on_reply": false,
+    "automation_mode": "automated"
+  },
+  {
+    "name": "Query",
+    "label": "Queries",
+    "dir_name": "General_Queries",
+    "description": "General questions.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false,
+    "automation_mode": "semi_automated",
+    "bcc_email": "visaka1208@gmail.com, vxk3286@g.coppellisd.com"
+  },
+  {
+    "name": "Opportunities",
+    "label": "Opportunities/Sponsorships",
+    "dir_name": "Opportunities",
+    "description": "Sponsorships.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false,
+    "automation_mode": "semi_automated"
+  },
+  {
+    "name": "Subscription",
+    "label": "Subscriptions",
+    "dir_name": "Subscriptions",
+    "description": "Newsletters.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false,
+    "automation_mode": "semi_automated"
+  },
+  {
+    "name": "Spam",
+    "label": "Spam",
+    "dir_name": "Spam",
+    "description": "Junk email.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false,
+    "automation_mode": "semi_automated"
+  },
+  {
+    "name": "BirthdaysCakes",
+    "label": "birthdays cakes",
+    "dir_name": "birthdays_cakes",
+    "description": "When customers reach out to us requesting a cake for their birthday",
+    "is_standard": false,
+    "enabled": true,
+    "has_auto_reply": true,
+    "escalate_on_reply": false,
+    "archived": false,
+    "automation_mode": "automated"
+  },
+  {
+    "name": "Jira",
+    "label": "Jira",
+    "dir_name": "Jira",
+    "description": "User story updates",
+    "is_standard": false,
+    "enabled": true,
+    "automation_mode": "semi_automated",
+    "has_auto_reply": false,
+    "escalate_on_reply": false
+  },
+  {
+    "name": "Enquiries",
+    "label": "Enquiries",
+    "dir_name": "Enquiries",
+    "description": "Enquiry for service catalog",
+    "is_standard": false,
+    "enabled": true,
+    "automation_mode": "semi_automated",
+    "has_auto_reply": false,
+    "escalate_on_reply": false
+  }
+]

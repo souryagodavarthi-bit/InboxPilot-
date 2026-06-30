@@ -1,0 +1,84 @@
+[
+  {
+    "name": "Refund",
+    "label": "Refund Requests",
+    "dir_name": "Refund_Requests",
+    "description": "Customer wants their money back.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": true,
+    "escalate_on_reply": true
+  },
+  {
+    "name": "Bug Report",
+    "label": "Bug Reports",
+    "dir_name": "Bug_Reports",
+    "description": "Customer is reporting a technical issue.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": true,
+    "escalate_on_reply": true
+  },
+  {
+    "name": "Delay",
+    "label": "Delay Complaints",
+    "dir_name": "Delay_Complaints",
+    "description": "Customer complains about delay.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": true,
+    "escalate_on_reply": true
+  },
+  {
+    "name": "Query",
+    "label": "Queries",
+    "dir_name": "General_Queries",
+    "description": "General questions.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false
+  },
+  {
+    "name": "Opportunities",
+    "label": "Opportunities/Sponsorships",
+    "dir_name": "Opportunities",
+    "description": "Sponsorships.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false
+  },
+  {
+    "name": "Subscription",
+    "label": "Subscriptions",
+    "dir_name": "Subscriptions",
+    "description": "Newsletters.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false
+  },
+  {
+    "name": "Spam",
+    "label": "Spam",
+    "dir_name": "Spam",
+    "description": "Junk email.",
+    "is_standard": true,
+    "enabled": true,
+    "has_auto_reply": false,
+    "escalate_on_reply": false
+  },
+  {
+    "name": "BirthdaysCakes",
+    "label": "birthdays cakes",
+    "dir_name": "birthdays_cakes",
+    "description": "When customers reach out to us requesting a cake for their birthday",
+    "is_standard": false,
+    "enabled": true,
+    "has_auto_reply": true,
+    "escalate_on_reply": false,
+    "archived": false,
+    "automation_mode": "automated"
+  }
+]
