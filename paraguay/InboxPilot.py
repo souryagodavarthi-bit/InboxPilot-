@@ -112,7 +112,8 @@ except Exception:
     pass
 
 # 2. Setup Qwen Client
-api_key = os.getenv("QWEN_API_KEY").strip()
+# This gives it an empty string instead of None if the secret isn't found
+api_key = os.getenv("QWEN_API_KEY", "").strip()
 try:
     client = OpenAI(
         api_key=api_key,
