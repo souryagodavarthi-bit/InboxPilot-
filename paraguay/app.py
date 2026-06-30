@@ -757,7 +757,7 @@ if "code" in st.query_params:
             "code": auth_code,
             "client_id": google_creds["client_id"],
             "client_secret": google_creds["client_secret"],
-            "redirect_uri": google_creds.get("redirect_uri", "http://localhost:8501/"),
+            "redirect_uri": google_creds.get("redirect_uri", "https://inboxpilotplus.streamlit.app/"),
             "grant_type": "authorization_code"
         }
         with st.spinner("Exchanging code for Google credentials..."):
