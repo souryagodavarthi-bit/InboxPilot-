@@ -627,18 +627,18 @@ def save_accounts(accounts):
 
 # Google OAuth Credentials persistence logic
 def load_google_creds():
-    if os.path.exists(GOOGLE_CREDS_FILE):
-        try:
-            with open(GOOGLE_CREDS_FILE, "r") as f:
-                return json.load(f)
-        except:
-            pass
+    # Check if the credentials exist in Streamlit Secrets instead of a file
+    if "GOOGLE_CLIENT_ID" in st.secrets:
+        return {
+            "client_id": st.secrets["GOOGLE_CLIENT_ID"],
+            "client_secret": st.secrets["GOOGLE_CLIENT_SECRET"],
+            "redirect_uri": st.secrets["GOOGLE_REDIRECT_URI"]
+        }
     return None
 
-def save_google_creds(creds):
-    with open(GOOGLE_CREDS_FILE, "w") as f:
-        json.dump(creds, f)
-
+def save_google_creds(client_id, client_secret, redirect_uri):
+    # This function is no longer needed since we use Streamlit Secrets
+    pass
 
 def get_category_border_style(cat_name, is_escalated=False):
     if is_escalated:
