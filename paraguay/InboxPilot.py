@@ -112,7 +112,7 @@ except Exception:
     pass
 
 # 2. Setup Qwen Client
-api_key = os.getenv("QWEN_API_KEY")
+api_key = os.getenv("QWEN_API_KEY").strip()
 try:
     client = OpenAI(
         api_key=api_key,
