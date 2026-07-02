@@ -836,7 +836,7 @@ if not st.session_state.logged_in:
         # 1. Google Button (Original Working OAuth Flow)
         if google_creds:
             client_id = google_creds["client_id"]
-            redirect_uri = google_creds.get("redirect_uri", "http://localhost:8501/")
+            redirect_uri = google_creds.get("redirect_uri", "https://inboxpilotplus.streamlit.app/")
             scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.send"
             auth_url = f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope={scope}&state=state&access_type=offline&prompt=consent"
             
