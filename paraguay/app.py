@@ -636,6 +636,16 @@ def load_google_creds():
         }
     return None
 
+# 👇 DEFINE THE NEW FUNCTION RIGHT HERE
+def save_google_refresh_token(refresh_token):
+    """Safely saves the permanent refresh token alongside credentials"""
+    token_path = os.path.join(BASE_DIR, "google_token.json")
+    try:
+        with open(token_path, "w", encoding="utf-8") as f:
+            json.dump({"refresh_token": refresh_token}, f)
+    except Exception as e:
+        st.error(f"Failed to save refresh token: {e}")
+
 def save_google_creds(client_id, client_secret, redirect_uri):
     # This function is no longer needed since we use Streamlit Secrets
     pass
@@ -751,6 +761,7 @@ if not st.session_state.logged_in and "session_email" in st.query_params:
 if "code" in st.query_params:
     auth_code = st.query_params["code"]
     google_creds = load_google_creds()
+    
     if google_creds:
         token_url = "https://oauth2.googleapis.com/token"
         data = {
@@ -760,21 +771,23 @@ if "code" in st.query_params:
             "redirect_uri": google_creds.get("redirect_uri", "https://inboxpilotplus.streamlit.app/"),
             "grant_type": "authorization_code"
         }
+        
         with st.spinner("Exchanging code for Google credentials..."):
             try:
                 res = requests.post(token_url, data=data)
                 if res.status_code == 200:
                     tokens = res.json()
                     access_token = tokens["access_token"]
+                    
+                    # ✅ FIXED: Call the updated token persistence function instead of breaking the app
                     if "refresh_token" in tokens:
-                        google_creds = load_google_creds()
-                        if google_creds:
-                            google_creds["refresh_token"] = tokens["refresh_token"]
-                            save_google_creds(google_creds)
+                        save_google_refresh_token(tokens["refresh_token"])
+                    
                     # Fetch User Info from Google profile API
                     userinfo_url = "https://www.googleapis.com/oauth2/v2/userinfo"
                     headers = {"Authorization": f"Bearer {access_token}"}
                     user_res = requests.get(userinfo_url, headers=headers)
+                    
                     if user_res.status_code == 200:
                         user_info = user_res.json()
                         st.session_state.logged_in = True
@@ -782,6 +795,7 @@ if "code" in st.query_params:
                         st.session_state.first_name = user_info.get("given_name", user_info.get("name", "User").split()[0])
                         st.session_state.tutorial_completed = is_tutorial_completed_in_profile()
                         st.session_state.tutorial_tab = 1
+                        
                         st.query_params.clear()  # Clean code from address bar
                         st.query_params["session_email"] = st.session_state.user_email
                         st.success("Successfully logged in with Google!")
@@ -793,7 +807,7 @@ if "code" in st.query_params:
             except Exception as e:
                 st.error(f"Authentication Request Error: {e}")
     else:
-        st.error("Authorization code received but Google credentials are not configured in google_creds.json.")
+        st.error("Authorization code received but Google credentials are not configured in Streamlit Secrets.")
 
 # Authentication View
 if not st.session_state.logged_in:
@@ -935,7 +949,7 @@ if not st.session_state.logged_in:
                 
                 cfg_client_id = st.text_input("Google Client ID", value=google_creds["client_id"] if google_creds else "")
                 cfg_client_secret = st.text_input("Google Client Secret", type="password", value=google_creds["client_secret"] if google_creds else "")
-                cfg_redirect_uri = st.text_input("Redirect URI", value=google_creds.get("redirect_uri", "http://localhost:8501/") if google_creds else "http://localhost:8501/")
+                cfg_redirect_uri = st.text_input("Redirect URI", value=google_creds.get("redirect_uri", "https://inboxpilotplus.streamlit.app/") if google_creds else "http://localhost:8501/")
                 
                 if st.button("Save Google OAuth Configuration", key="save_google_cfg"):
                     if cfg_client_id and cfg_client_secret:
